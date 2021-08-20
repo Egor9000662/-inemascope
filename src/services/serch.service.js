@@ -1,6 +1,6 @@
 import HttpProvider from "./HTTPHandler";
 
-const apiKey = "k_jm5k9op5";
+const apiKey = "k_gfavrhed";
 
 export class SearchService {
   static search = async (expression) => {
