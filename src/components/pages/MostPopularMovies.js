@@ -27,6 +27,7 @@ function MostPopularMovies({
       }
     }
   };
+
   useEffect(() => {
     document.addEventListener("scroll", scrollHandler);
     return function () {
@@ -40,10 +41,12 @@ function MostPopularMovies({
     }
   }, [allItemsLoaded, getMostPopularMovies]);
 
+  const array = films.slice(0, countFilms);
+
   return (
     <div className={styles.container_content}>
       {!loading ? (
-        films.slice(0, countFilms).map((item) => {
+        array.map((item) => {
           return (
             <Link to={`/films/${item.id}`} key={item.id}>
               <FilmItem

@@ -20,10 +20,10 @@ import SearchPage from "./components/pages/SearchPage";
 import styles from "./styles/app.module.scss";
 
 function App() {
-  const [openMenu, setOpenMenu] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const clickMenu = () => {
-    setOpenMenu(!openMenu);
+    setIsMenuOpen(!isMenuOpen);
   };
   const customHistory = createBrowserHistory();
 
@@ -40,7 +40,7 @@ function App() {
             <div className="btn_menu" onClick={clickMenu}>
               <div className={styles.double_border_button}>Menu</div>
             </div>
-            {openMenu && (
+            {isMenuOpen && (
               <div className={styles.navigation}>
                 <ul>
                   <li>

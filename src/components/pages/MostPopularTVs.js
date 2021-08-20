@@ -35,10 +35,12 @@ function MostPopularTVS({ films, getMostPopularTVs, allItemsLoaded, loading }) {
     }
   }, [allItemsLoaded, getMostPopularTVs]);
 
+  const array = films.slice(0, countFilms);
+
   return (
     <div className={styles.container_content}>
       {!loading ? (
-        films.slice(0, countFilms).map((item) => {
+        array.map((item) => {
           return (
             <Link to={`/films/${item.id}`} key={item.id}>
               <FilmItem
