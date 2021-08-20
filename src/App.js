@@ -5,8 +5,9 @@ import {
   Route,
   NavLink,
 } from "react-router-dom";
+import { createBrowserHistory } from "history";
+
 import HomePage from "./components/pages/home.page";
-import styles from "./styles/app.module.scss";
 import MostPopularMovies from "./components/pages/MostPopularMovies";
 import MostPopularTVs from "./components/pages/MostPopularTVs";
 import NewMoviesComingSoon from "./components/pages/NewMoviesComingSoon";
@@ -15,13 +16,14 @@ import Top250TVs from "./components/pages/Top250TVs";
 import FilmPage from "./components/pages/FilmPage";
 import InputSerch from "./components/common/InputSearch";
 import SearchPage from "./components/pages/SearchPage";
-import { createBrowserHistory } from "history";
+
+import styles from "./styles/app.module.scss";
 
 function App() {
-  const [flag, setFlag] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
 
   const clickMenu = () => {
-    setFlag(!flag);
+    setOpenMenu(!openMenu);
   };
   const customHistory = createBrowserHistory();
 
@@ -38,7 +40,7 @@ function App() {
             <div className="btn_menu" onClick={clickMenu}>
               <div className={styles.double_border_button}>Menu</div>
             </div>
-            {flag && (
+            {openMenu && (
               <div className={styles.navigation}>
                 <ul>
                   <li>
@@ -101,11 +103,7 @@ function App() {
                 path="/MostPopularMovies"
                 component={MostPopularMovies}
               />
-              <Route
-                exact
-                path="/search/:phrase"
-                component={SearchPage}
-              />
+              <Route exact path="/search/:phrase" component={SearchPage} />
               <Route path="/films/:filmId" component={FilmPage} />
             </Switch>
           </section>
