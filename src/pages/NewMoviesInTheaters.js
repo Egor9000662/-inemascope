@@ -2,12 +2,11 @@
 /* eslint-disable react/jsx-key */
 
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+
 import { connect } from "react-redux";
 import { newMoviesInTheaters } from "../redux/modules/films";
-import styles from "../styles/homePage.module.scss";
-import FilmItem from "../components/FilmsItem";
-import Spinner from "../components/Spinner";
+
+import Films from "../components/films";
 
 function NewInTheaters({
   films,
@@ -21,30 +20,7 @@ function NewInTheaters({
     }
   }, [allItemsLoaded, newMoviesInTheaters]);
 
-  return (
-    <div className={styles.container_content}>
-      {!loading ? (
-        films.map((item) => {
-          return (
-            <Link to={`/films/${item.id}`} key={item.id}>
-              <FilmItem
-                fullTitle={item.fullTitle}
-                imDbRating={item.imDbRating}
-                image={item.image}
-                crew={item.crew}
-                title={item.title}
-                s
-              />
-            </Link>
-          );
-        })
-      ) : (
-        <div className={styles.box_spinner}>
-          <Spinner />
-        </div>
-      )}
-    </div>
-  );
+  return <Films array={films} loading={loading} />;
 }
 
 const mapStateToProps = ({ films }) => ({

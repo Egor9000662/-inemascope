@@ -1,12 +1,11 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-key */
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+
 import { connect } from "react-redux";
 import { getMostPopularTVs } from "../redux/modules/films";
-import styles from "../styles/homePage.module.scss";
-import FilmItem from "../components/FilmsItem";
-import Spinner from "../components/Spinner";
+
+import Films from "../components/films";
 
 function MostPopularTVS({ films, getMostPopularTVs, allItemsLoaded, loading }) {
   const [countFilms, setCountFilms] = useState(25);
@@ -37,30 +36,7 @@ function MostPopularTVS({ films, getMostPopularTVs, allItemsLoaded, loading }) {
 
   const array = films.slice(0, countFilms);
 
-  return (
-    <div className={styles.container_content}>
-      {!loading ? (
-        array.map((item) => {
-          return (
-            <Link to={`/films/${item.id}`} key={item.id}>
-              <FilmItem
-                fullTitle={item.fullTitle}
-                imDbRating={item.imDbRating}
-                image={item.image}
-                crew={item.crew}
-                title={item.title}
-                s
-              />
-            </Link>
-          );
-        })
-      ) : (
-        <div className={styles.box_spinner}>
-          <Spinner />
-        </div>
-      )}
-    </div>
-  );
+  return <Films array={array} loading={loading} />;
 }
 const mapStateToProps = ({ films }) => ({
   films: films.mostPopularTVs.items,
