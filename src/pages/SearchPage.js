@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import styles from "../../styles/homePage.module.scss";
-import FilmItem from "../common/FilmsItem";
+import styles from "../styles/homePage.module.scss";
+import FilmItem from "../components/FilmsItem";
 import { connect } from "react-redux";
-import { searchFilms } from "../../redux/modules/films";
-import Spinner from "../common/Spinner";
+import { searchFilms } from "../redux/modules/films";
+import Spinner from "../components/Spinner";
 
 function SearchPage(props) {
   const {

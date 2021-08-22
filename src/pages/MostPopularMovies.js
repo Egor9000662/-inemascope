@@ -1,12 +1,10 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-key */
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+
 import { connect } from "react-redux";
-import { getMostPopularMovies } from "../../redux/modules/films";
-import styles from "../../styles/homePage.module.scss";
-import FilmItem from "../../components/common/FilmsItem";
-import Spinner from "../common/Spinner";
+import { getMostPopularMovies } from "../redux/modules/films";
+import Films from "../components/films";
 
 function MostPopularMovies({
   films,
@@ -27,6 +25,7 @@ function MostPopularMovies({
       }
     }
   };
+
   useEffect(() => {
     document.addEventListener("scroll", scrollHandler);
     return function () {
@@ -40,29 +39,9 @@ function MostPopularMovies({
     }
   }, [allItemsLoaded, getMostPopularMovies]);
 
-  return (
-    <div className={styles.container_content}>
-      {!loading ? (
-        films.slice(0, countFilms).map((item) => {
-          return (
-            <Link to={`/films/${item.id}`} key={item.id}>
-              <FilmItem
-                fullTitle={item.fullTitle}
-                imDbRating={item.imDbRating}
-                image={item.image}
-                crew={item.crew}
-                title={item.title}
-              />
-            </Link>
-          );
-        })
-      ) : (
-        <div className={styles.box_spinner}>
-          <Spinner />
-        </div>
-      )}
-    </div>
-  );
+  const array = films.slice(0, countFilms);
+
+  return <Films array={array} loading={loading} />;
 }
 const mapStateToProps = ({ films }) => ({
   films: films.mostPopular.items,

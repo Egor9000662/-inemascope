@@ -7,23 +7,23 @@ import {
 } from "react-router-dom";
 import { createBrowserHistory } from "history";
 
-import HomePage from "./components/pages/home.page";
-import MostPopularMovies from "./components/pages/MostPopularMovies";
-import MostPopularTVs from "./components/pages/MostPopularTVs";
-import NewMoviesComingSoon from "./components/pages/NewMoviesComingSoon";
-import NewMoviesInTheaters from "./components/pages/NewMoviesInTheaters";
-import Top250TVs from "./components/pages/Top250TVs";
-import FilmPage from "./components/pages/FilmPage";
-import InputSerch from "./components/common/InputSearch";
-import SearchPage from "./components/pages/SearchPage";
+import HomePage from "./pages/home.page";
+import MostPopularMovies from "./pages/MostPopularMovies";
+import MostPopularTVs from "./pages/MostPopularTVs";
+import NewMoviesComingSoon from "./pages/NewMoviesComingSoon";
+import NewMoviesInTheaters from "./pages/NewMoviesInTheaters";
+import Top250TVs from "./pages/Top250TVs";
+import FilmPage from "./pages/FilmPage";
+import InputSerch from "./components/InputSearch";
+import SearchPage from "./pages/SearchPage";
 
 import styles from "./styles/app.module.scss";
 
 function App() {
-  const [openMenu, setOpenMenu] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const clickMenu = () => {
-    setOpenMenu(!openMenu);
+    setIsMenuOpen(!isMenuOpen);
   };
   const customHistory = createBrowserHistory();
 
@@ -40,7 +40,7 @@ function App() {
             <div className="btn_menu" onClick={clickMenu}>
               <div className={styles.double_border_button}>Menu</div>
             </div>
-            {openMenu && (
+            {isMenuOpen && (
               <div className={styles.navigation}>
                 <ul>
                   <li>

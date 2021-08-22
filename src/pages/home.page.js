@@ -2,12 +2,10 @@
 /* eslint-disable react/prop-types */
 
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { getTopMovies250 } from "../../redux/modules/films";
-import styles from "../../styles/homePage.module.scss";
-import FilmItem from "../../components/common/FilmsItem";
-import Spinner from "../common/Spinner";
+import { getTopMovies250 } from "../redux/modules/films";
+
+import Films from "../components/films";
 
 function HomePage({ films, loading, allItemsLoaded, getTopMovies250 }) {
   const [countFilms, setCountFilms] = useState(25);
@@ -24,6 +22,8 @@ function HomePage({ films, loading, allItemsLoaded, getTopMovies250 }) {
     }
   };
 
+  const array = films.slice(0, countFilms);
+
   useEffect(() => {
     document.addEventListener("scroll", scrollHandler);
     return function () {
@@ -37,30 +37,7 @@ function HomePage({ films, loading, allItemsLoaded, getTopMovies250 }) {
     }
   }, [allItemsLoaded, getTopMovies250]);
 
-  return (
-    <div className={styles.container_content}>
-      {!loading ? (
-        films.slice(0, countFilms).map((item) => {
-          return (
-            <Link to={`/films/${item.id}`} key={item.id}>
-              <FilmItem
-                fullTitle={item.fullTitle}
-                imDbRating={item.imDbRating}
-                image={item.image}
-                crew={item.crew}
-                title={item.title}
-                s
-              />
-            </Link>
-          );
-        })
-      ) : (
-        <div className={styles.box_spinner}>
-          <Spinner />
-        </div>
-      )}
-    </div>
-  );
+  return <Films array={array} loading={loading} />;
 }
 
 const mapStateToProps = ({ films }) => ({

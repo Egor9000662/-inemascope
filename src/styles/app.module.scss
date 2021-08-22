@@ -1,3 +1,5 @@
+@import './vars.scss';
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -19,7 +21,7 @@
 ::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
-    background-color: #f1c40f;
+    background-color: $color;
 }
 
 .global_container {
@@ -68,7 +70,7 @@
             }
 
             .navigation a.chosen {
-                border: 2px #f1c40f solid;
+                border: 2px $color solid;
                 font-size: 22px;
             }
 
@@ -113,8 +115,8 @@
     margin: 10px 20px;
     padding: 10px 30px;
     position: relative;
-    border: 2px solid #f1c40f;
-    color: #f1c40f;
+    border: 2px solid $color;
+    color: $color;
     font-family: "Montserrat", sans-serif;
     transition: 0.4s;
 }
@@ -134,7 +136,7 @@
 }
 
 .double_border_button:hover:after {
-    border-color: #f1c40f;
+    border-color: $color;
     width: calc(100% - 10px);
     height: calc(100% + 10px);
 }
