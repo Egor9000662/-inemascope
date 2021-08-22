@@ -4,10 +4,10 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { newMoviesInTheaters } from "../../redux/modules/films";
-import styles from "../../styles/homePage.module.scss";
-import FilmItem from "../../components/common/FilmsItem";
-import Spinner from "../common/Spinner";
+import { newMoviesInTheaters } from "../redux/modules/films";
+import styles from "../styles/homePage.module.scss";
+import FilmItem from "../components/FilmsItem";
+import Spinner from "../components/Spinner";
 
 function NewInTheaters({
   films,

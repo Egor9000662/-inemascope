@@ -3,11 +3,17 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { getTOP250MoviesTVs } from "../../redux/modules/films";
-import styles from "../../styles/homePage.module.scss";
-import FilmItem from "../../components/common/FilmsItem";
-import Spinner from "../common/Spinner";
-function Top250TVs({ films, loading, allItemsLoaded, getTOP250MoviesTVs }) {
+import { getMostPopularMovies } from "../redux/modules/films";
+import styles from "../styles/homePage.module.scss";
+import FilmItem from "../components/FilmsItem";
+import Spinner from "../components/Spinner";
+
+function MostPopularMovies({
+  films,
+  getMostPopularMovies,
+  allItemsLoaded,
+  loading,
+}) {
   const [countFilms, setCountFilms] = useState(25);
 
   const scrollHandler = (e) => {
@@ -28,13 +34,15 @@ function Top250TVs({ films, loading, allItemsLoaded, getTOP250MoviesTVs }) {
       document.removeEventListener("scroll", scrollHandler);
     };
   }, [scrollHandler]);
+
   useEffect(() => {
     if (!allItemsLoaded) {
-      getTOP250MoviesTVs();
+      getMostPopularMovies();
     }
-  }, [allItemsLoaded, getTOP250MoviesTVs]);
+  }, [allItemsLoaded, getMostPopularMovies]);
 
   const array = films.slice(0, countFilms);
+
   return (
     <div className={styles.container_content}>
       {!loading ? (
@@ -47,7 +55,6 @@ function Top250TVs({ films, loading, allItemsLoaded, getTOP250MoviesTVs }) {
                 image={item.image}
                 crew={item.crew}
                 title={item.title}
-                s
               />
             </Link>
           );
@@ -60,10 +67,12 @@ function Top250TVs({ films, loading, allItemsLoaded, getTOP250MoviesTVs }) {
     </div>
   );
 }
-
 const mapStateToProps = ({ films }) => ({
-  films: films.top250TVs.items,
-  allItemsLoaded: films.top250TVs.allItemsLoaded,
+  films: films.mostPopular.items,
+  allItemsLoaded: films.mostPopular.allItemsLoaded,
   loading: films.isFetching,
 });
-export default connect(mapStateToProps, { getTOP250MoviesTVs })(Top250TVs);
+
+export default connect(mapStateToProps, { getMostPopularMovies })(
+  MostPopularMovies
+);

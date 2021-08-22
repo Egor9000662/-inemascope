@@ -1,15 +1,13 @@
-/* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
-
+/* eslint-disable react/jsx-key */
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { getTopMovies250 } from "../../redux/modules/films";
-import styles from "../../styles/homePage.module.scss";
-import FilmItem from "../../components/common/FilmsItem";
-import Spinner from "../common/Spinner";
-
-function HomePage({ films, loading, allItemsLoaded, getTopMovies250 }) {
+import { getTOP250MoviesTVs } from "../redux/modules/films";
+import styles from "../styles/homePage.module.scss";
+import FilmItem from "../components/FilmsItem";
+import Spinner from "../components/Spinner";
+function Top250TVs({ films, loading, allItemsLoaded, getTOP250MoviesTVs }) {
   const [countFilms, setCountFilms] = useState(25);
 
   const scrollHandler = (e) => {
@@ -24,21 +22,19 @@ function HomePage({ films, loading, allItemsLoaded, getTopMovies250 }) {
     }
   };
 
-  const array = films.slice(0, countFilms);
-
   useEffect(() => {
     document.addEventListener("scroll", scrollHandler);
     return function () {
       document.removeEventListener("scroll", scrollHandler);
     };
   }, [scrollHandler]);
-
   useEffect(() => {
     if (!allItemsLoaded) {
-      getTopMovies250();
+      getTOP250MoviesTVs();
     }
-  }, [allItemsLoaded, getTopMovies250]);
+  }, [allItemsLoaded, getTOP250MoviesTVs]);
 
+  const array = films.slice(0, countFilms);
   return (
     <div className={styles.container_content}>
       {!loading ? (
@@ -66,8 +62,8 @@ function HomePage({ films, loading, allItemsLoaded, getTopMovies250 }) {
 }
 
 const mapStateToProps = ({ films }) => ({
-  films: films.top250.items,
-  allItemsLoaded: films.top250.allItemsLoaded,
+  films: films.top250TVs.items,
+  allItemsLoaded: films.top250TVs.allItemsLoaded,
   loading: films.isFetching,
 });
-export default connect(mapStateToProps, { getTopMovies250 })(HomePage);
+export default connect(mapStateToProps, { getTOP250MoviesTVs })(Top250TVs);

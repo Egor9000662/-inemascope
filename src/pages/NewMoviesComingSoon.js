@@ -4,10 +4,10 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { getComingSoon } from "../../redux/modules/films";
-import styles from "../../styles/homePage.module.scss";
-import FilmItem from "../../components/common/FilmsItem";
-import Spinner from "../common/Spinner";
+import { getComingSoon } from "../redux/modules/films";
+import styles from "../styles/homePage.module.scss";
+import FilmItem from "../components/FilmsItem";
+import Spinner from "../components/Spinner";
 
 function NewComingSoon({ films, getComingSoon, allItemsLoaded, loading }) {
   useEffect(() => {

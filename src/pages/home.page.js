@@ -1,15 +1,17 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-key */
+/* eslint-disable react/prop-types */
+
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { getMostPopularTVs } from "../../redux/modules/films";
-import styles from "../../styles/homePage.module.scss";
-import FilmItem from "../../components/common/FilmsItem";
-import Spinner from "../common/Spinner";
+import { getTopMovies250 } from "../redux/modules/films";
+import styles from "../styles/homePage.module.scss";
+import FilmItem from "../components/FilmsItem";
+import Spinner from "../components/Spinner";
 
-function MostPopularTVS({ films, getMostPopularTVs, allItemsLoaded, loading }) {
+function HomePage({ films, loading, allItemsLoaded, getTopMovies250 }) {
   const [countFilms, setCountFilms] = useState(25);
+
   const scrollHandler = (e) => {
     if (
       e.target.documentElement.scrollHeight -
@@ -22,20 +24,20 @@ function MostPopularTVS({ films, getMostPopularTVs, allItemsLoaded, loading }) {
     }
   };
 
+  const array = films.slice(0, countFilms);
+
   useEffect(() => {
     document.addEventListener("scroll", scrollHandler);
     return function () {
       document.removeEventListener("scroll", scrollHandler);
     };
   }, [scrollHandler]);
-  console.log(getMostPopularTVs);
+
   useEffect(() => {
     if (!allItemsLoaded) {
-      getMostPopularTVs();
+      getTopMovies250();
     }
-  }, [allItemsLoaded, getMostPopularTVs]);
-
-  const array = films.slice(0, countFilms);
+  }, [allItemsLoaded, getTopMovies250]);
 
   return (
     <div className={styles.container_content}>
@@ -62,10 +64,10 @@ function MostPopularTVS({ films, getMostPopularTVs, allItemsLoaded, loading }) {
     </div>
   );
 }
+
 const mapStateToProps = ({ films }) => ({
-  films: films.mostPopularTVs.items,
-  allItemsLoaded: films.mostPopularTVs.allItemsLoaded,
+  films: films.top250.items,
+  allItemsLoaded: films.top250.allItemsLoaded,
   loading: films.isFetching,
 });
-
-export default connect(mapStateToProps, { getMostPopularTVs })(MostPopularTVS);
+export default connect(mapStateToProps, { getTopMovies250 })(HomePage);

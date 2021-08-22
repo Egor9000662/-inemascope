@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { getFilm, resetSelectedFilm } from "../../redux/modules/films";
-import SimilarItem from "../common/SimilarItem";
-import styles from "../../styles/filmPage.module.scss";
-import Spinner from "../common/Spinner";
+import { getFilm, resetSelectedFilm } from "../redux/modules/films";
+import SimilarItem from "../components/SimilarItem";
+import styles from "../styles/filmPage.module.scss";
+import Spinner from "../components/Spinner";
 
 function FilmPage(props) {
   const {

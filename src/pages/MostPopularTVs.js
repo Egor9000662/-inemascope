@@ -3,19 +3,13 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { getMostPopularMovies } from "../../redux/modules/films";
-import styles from "../../styles/homePage.module.scss";
-import FilmItem from "../../components/common/FilmsItem";
-import Spinner from "../common/Spinner";
+import { getMostPopularTVs } from "../redux/modules/films";
+import styles from "../styles/homePage.module.scss";
+import FilmItem from "../components/FilmsItem";
+import Spinner from "../components/Spinner";
 
-function MostPopularMovies({
-  films,
-  getMostPopularMovies,
-  allItemsLoaded,
-  loading,
-}) {
+function MostPopularTVS({ films, getMostPopularTVs, allItemsLoaded, loading }) {
   const [countFilms, setCountFilms] = useState(25);
-
   const scrollHandler = (e) => {
     if (
       e.target.documentElement.scrollHeight -
@@ -34,12 +28,12 @@ function MostPopularMovies({
       document.removeEventListener("scroll", scrollHandler);
     };
   }, [scrollHandler]);
-
+  console.log(getMostPopularTVs);
   useEffect(() => {
     if (!allItemsLoaded) {
-      getMostPopularMovies();
+      getMostPopularTVs();
     }
-  }, [allItemsLoaded, getMostPopularMovies]);
+  }, [allItemsLoaded, getMostPopularTVs]);
 
   const array = films.slice(0, countFilms);
 
@@ -55,6 +49,7 @@ function MostPopularMovies({
                 image={item.image}
                 crew={item.crew}
                 title={item.title}
+                s
               />
             </Link>
           );
@@ -68,11 +63,9 @@ function MostPopularMovies({
   );
 }
 const mapStateToProps = ({ films }) => ({
-  films: films.mostPopular.items,
-  allItemsLoaded: films.mostPopular.allItemsLoaded,
+  films: films.mostPopularTVs.items,
+  allItemsLoaded: films.mostPopularTVs.allItemsLoaded,
   loading: films.isFetching,
 });
 
-export default connect(mapStateToProps, { getMostPopularMovies })(
-  MostPopularMovies
-);
+export default connect(mapStateToProps, { getMostPopularTVs })(MostPopularTVS);
